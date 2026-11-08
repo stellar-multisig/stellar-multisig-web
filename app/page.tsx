@@ -1,101 +1,120 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ConnectButton } from "@/components/wallet/ConnectButton";
 
-export default function Home() {
+function Step({
+  number,
+  title,
+  description,
+}: {
+  number: string;
+  title: string;
+  description: string;
+}) {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex flex-col gap-3 rounded-xl border border-slate-800 bg-slate-900/50 p-6">
+      <div className="flex items-center gap-3">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-900 text-sm font-bold text-sky-300">
+          {number}
+        </span>
+        <h3 className="text-base font-semibold text-slate-200">{title}</h3>
+      </div>
+      <p className="text-sm text-slate-400 leading-relaxed">{description}</p>
+    </div>
+  );
+}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default function LandingPage() {
+  return (
+    <div className="flex flex-col gap-16">
+      <section className="flex flex-col items-center text-center gap-6 py-16">
+        <div className="inline-flex items-center gap-2 rounded-full border border-sky-800 bg-sky-950/50 px-4 py-1.5 text-xs text-sky-400">
+          ✦ Supports Classic &amp; Soroban multisig accounts
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <h1 className="text-4xl sm:text-5xl font-bold text-slate-100 max-w-2xl leading-tight">
+          Coordinate multisig transactions on Stellar
+        </h1>
+        <p className="text-lg text-slate-400 max-w-xl leading-relaxed">
+          Propose a transaction, collect signatures from distributed signers,
+          and submit once the threshold is met — without ever sharing private keys.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <ConnectButton />
+          <Link
+            href="/accounts/lookup"
+            className="rounded-lg border border-slate-700 px-5 py-2.5 text-sm font-medium text-slate-300 hover:border-slate-500 hover:text-slate-100 transition-colors"
+          >
+            Look up an account
+          </Link>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-6">
+        <h2 className="text-xl font-semibold text-slate-200 text-center">How it works</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Step
+            number="1"
+            title="Propose"
+            description="Paste a transaction XDR or build a simple payment. The transaction is decoded so every signer can read exactly what they're approving before signing."
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <Step
+            number="2"
+            title="Sign"
+            description="Each signer reviews the decoded operations and signs via Freighter. Signatures are collected off-chain until the threshold is met. Private keys never leave your device."
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <Step
+            number="3"
+            title="Submit"
+            description="Once enough signatures are collected, any signer can submit the assembled transaction to the Stellar network. The result is linked to Stellar Expert."
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-xl font-semibold text-slate-200 text-center">Account types</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-sky-800/50 bg-sky-950/20 p-6 flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sky-400 text-lg">★</span>
+              <h3 className="font-semibold text-slate-200">Classic Multisig</h3>
+            </div>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Stellar's native M-of-N account model using signer weights and
+              low/medium/high thresholds. Works with any Stellar account that
+              has multiple signers configured via <code className="text-sky-400">set_options</code>.
+            </p>
+          </div>
+          <div className="rounded-xl border border-violet-800/50 bg-violet-950/20 p-6 flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-violet-400 text-lg">✦</span>
+              <h3 className="font-semibold text-slate-200">Soroban Smart Account</h3>
+            </div>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Custom account contracts that implement <code className="text-violet-400">__check_auth</code> for
+              on-chain M-of-N ed25519 verification. Deployed via the{" "}
+              <a
+                href="https://github.com/stellar-multisig/stellar-multisig-contracts"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-violet-400 hover:underline"
+              >
+                multisig-contracts
+              </a>{" "}
+              factory.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-amber-800/40 bg-amber-950/20 p-6 flex flex-col gap-3">
+        <h3 className="text-sm font-semibold text-amber-300">Security principle</h3>
+        <p className="text-sm text-slate-300 leading-relaxed">
+          Every transaction is decoded into plain language before you can sign it.
+          Operations that change signers or thresholds are flagged as high-risk and
+          require explicit acknowledgement. If a transaction cannot be decoded, you
+          will be warned — never silently presented with an unreadable payload.
+          Your private key never leaves Freighter.
+        </p>
+      </section>
     </div>
   );
 }
